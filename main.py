@@ -87,6 +87,7 @@ app.include_router(notify_router)
 app.include_router(private_rooms_router)
 app.include_router(achievement_router)
 
+
 RATE_LIMIT = 1000  # Numarul de requesturi permise
 RATE_LIMIT_WINDOW = 60  # Perioada de timp in secunde
 

@@ -2,15 +2,15 @@ import datetime
 import uuid
 
 from dotenv import dotenv_values
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, DateTime, DATE, Boolean, DECIMAL
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, DateTime, DATE, Boolean, DECIMAL, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 env_vars = dotenv_values(".env")
 
-'''DATABASE_CREDENTIALS = env_vars.get("DATABASE_CREDENTIALS")
-# DATABASE_URL = "postgresql://postgres:pZYOHFebkimonnAAMIgYnkZOvNcftLhV@junction.proxy.rlwy.net:37248/railway"'''
-DATABASE_CREDENTIALS = "postgresql://koyeb-adm:5cajfyzw6MsL@ep-round-haze-a4evo2dc.us-east-1.pg.koyeb.app/koyebdb"
+DATABASE_CREDENTIALS = env_vars.get("DATABASE_CREDENTIALS")
+# DATABASE_URL = "postgresql://postgres:pZYOHFebkimonnAAMIgYnkZOvNcftLhV@junction.proxy.rlwy.net:37248/railway"
+#DATABASE_CREDENTIALS = "postgresql://koyeb-adm:5cajfyzw6MsL@ep-round-haze-a4evo2dc.us-east-1.pg.koyeb.app/koyebdb"
 
 
 Base = declarative_base()
@@ -175,7 +175,7 @@ class Profile(Base):
     __tablename__ = "profile"
 
     profile_id = Column(String(36), primary_key=True, unique=True, default=lambda: str(uuid.uuid4()))
-    photoData = Column(String(64), nullable=True)
+    photoData = Column(Text, nullable=True,default="/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCACAAIADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD5/ooooAKKKKACuj8PeEL3XMTufs9n/wA9WGS3+6O/16UnhDw9/bmpb51b7HBhpCP4j2X8f5V66iLGioihUUYCqMACgDE07wjo2mou20WeQdZJxvJ/DoPyraVFRdqKqj0UYp1FADWRXXa6qw9GGaxdS8I6NqSNutFgkPSSAbCPw6H8q3KKAPIfEPhG90PMyn7RZ/8APVRgr7MO316Vzte/OiyIyOoZGGGVhkEV5F4u8P8A9hamDCGNpPloif4T3X8P5UAc9RRRQAUUUUAFFFFABRRTkXfIq+pAoA9i8I6b/Znhy2RlxLKPOk+rdP0xW5TUQRxqg6KAB+FOoAKKKKACiiigArD8Xab/AGl4cuUVcyRDzo/qvX9M1uU10EkbIejAg/jQB4DRTpF2SMvoSKbQAUUUUAFFFFABTo22SK3oQabRQB7+jB0Vx0YAilrF8J6iNT8OWshOZI18qT6rx/LBraoAKKKKACiiigApsjiOJ3JwFUkn6CnVheL9RGm+G7lwwEkw8lPq3X9M0AeOsxZix6k5pKKKACiiigAooooAKKKKAOk8H+If7E1Ex3DH7FPw/wDsN2b/AB9q9bVgyhlIKkZBB4IrwCum8O+MrvRVW3mU3NmOkZOGT/dP9KAPWqKyNO8T6PqaKYb2NHP/ACzlOxh+fX8K1x8wBXkHoRQAUUMQilmO0DueKx9Q8UaPpqMZb2N3HSOE72P5dPxoA13dY0Z3YKijJZjgAV5F4u8QnXNRCwlhZwZWMH+I92/H+VO8ReMLvXAbeMG3sv8AnkDkv7sf6VzdABRRRQAUUUUAFFFFABRRRQAUUUUAFTJd3MS7Y7iVF9FcgVDRQBLJdXEq7ZJ5XX0ZyaioooAKKKKACiiigAooooAKKK09G0G+1y4MdpGNq/flc4Vfqf6UAZlSwW090+y3hklb0RSx/SvUtL8B6TYBXuVN5MOSZOEz7L/jmumiijgQJDGkaDoqKAP0oA8fh8Ha/PgjTpFB7yMq/wAzVyP4fa64+ZbdP96X/DNer0UAeXL8OdYIyZ7MH03t/wDE09fhvqpPzXVmo9dzH+lenUUAeYv8N9UGNl3Zt9WYf0pp+HGrgEiezJ9N7f8AxNeoUUAeUv8AD7XUHyrbP/uy/wCOKpTeDdfhznTncDvGyt/I17HRQB4JPa3Fq+y4gkib0dCv86ir36SOOZCkqLIp/hdQR+tczqvgTSr8M9sps5j0MfKZ91/wxQB5PRWnrOg32h3Aju4xtb7kqHKt9D/SsygDT0DRpdc1WO0jO1PvSv8A3UHU/WvZbKyt9Os47S1jEcMYwB/U+prm/AGmLaaD9sK/vrtiSf8AZBwB/M/jXWUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAV72yt9Rs5LW6jEkMgwVP8x6GvG9f0WXQtUe1kO5D80T/AN5e3417ZXKeP9MW70H7WF/e2jbgf9kkA/0P4UAdFp1r9i0y1tf+eMSoceoHNWaKKACiiigAooooAKKKKACiiigAooooAKKKKACq2oWovdNubU4/fRMgz6kcVZooA//Z")
     userEmail = Column(String(100), ForeignKey("users.email"), nullable=False)
     description = Column(String(256), nullable=False, default="Hi! This is the basic description!")
 
