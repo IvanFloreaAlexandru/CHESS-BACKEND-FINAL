@@ -8,9 +8,8 @@ from sqlalchemy.orm import sessionmaker
 
 env_vars = dotenv_values(".env")
 
-DATABASE_CREDENTIALS = env_vars.get("DATABASE_CREDENTIALS")
-# DATABASE_URL = "postgresql://postgres:pZYOHFebkimonnAAMIgYnkZOvNcftLhV@junction.proxy.rlwy.net:37248/railway"
-#DATABASE_CREDENTIALS = "postgresql://koyeb-adm:5cajfyzw6MsL@ep-round-haze-a4evo2dc.us-east-1.pg.koyeb.app/koyebdb"
+#DATABASE_CREDENTIALS = env_vars.get("DATABASE_CREDENTIALS")
+DATABASE_CREDENTIALS = "postgres://koyeb-adm:IJltq8ydbY0K@ep-misty-grass-a2zpqu3w.eu-central-1.pg.koyeb.app/koyebdb"
 
 
 Base = declarative_base()
